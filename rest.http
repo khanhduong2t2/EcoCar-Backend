@@ -1,0 +1,7 @@
+POST http://localhost:8000/v1/eco/customer/register
+Content-Type:  application/json
+
+{
+    "username": "khanhduong2t2",
+    "password": "ngay2thang2"
+}
