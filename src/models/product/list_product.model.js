@@ -27,6 +27,10 @@ const listProductsSchema = new Schema({
     status: {
         type: String,
     },
+    slug: {
+        type: String,
+        required: true,
+    },
 }, {
     timestamps: true,
     collection: COLLECTION_NAME
