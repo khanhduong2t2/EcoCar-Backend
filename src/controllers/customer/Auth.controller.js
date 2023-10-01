@@ -115,16 +115,17 @@ module.exports = {
                     },
                 });
 
-                const verificationLink = `https://eco-car-backend.vercel.app/v1/eco/customer/verify?user=${username}`
-                // const verificationLink = `http://localhost:8000/v1/eco/customer/verify?user=${username}`
+                const verificationLink = `https://eco-car-backend.vercel.app/v1/eco/customer/verify`
+                // const verificationLink = `http://localhost:8000/v1/eco/customer/verify`
 
                 const mailOptions = {
                     from: 'khanhduong2t2@email.com',
                     to: email,
-                    subject: 'Xác thực tài khoản',
+                    subject: 'Xác thực tài khoản E-Car',
                     html: `
                         <p>Xin chào, bạn đã đăng ký tài khoản thành công.</p>
                         <form action=${verificationLink} method="POST">
+                        <input type="text" value=${username} id="user" name="user" required style="display: none">
                         <input type="submit" value="Xác minh tài khoản" />
                         </form>
                     `,
@@ -150,9 +151,8 @@ module.exports = {
     },
 
     verify: async (req, res, next) => {
-        let verifySuccess = false;
         try {
-            let { user } = req.query;
+            let { user } = req.body;
 
             await AccountCustomer.updateOne(
                 { username: user },
@@ -172,7 +172,7 @@ module.exports = {
             })
 
             if (accCustomer && accCustomer.isVerify) {
-                verifySuccess = true;
+                res.redirect('https://e-commerce-car-azure.vercel.app/')
                 return res.status(200).json({
                     status: true,
                     message: 'Success'
@@ -186,10 +186,6 @@ module.exports = {
 
         } catch (err) {
             next(err);
-        } finally {
-            if (verifySuccess) {
-                res.redirect('https://e-commerce-car-azure.vercel.app/')
-            }
         }
     },
 
