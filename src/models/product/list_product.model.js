@@ -1,11 +1,15 @@
 'use strict'
-const bcrypt = require('bcrypt');
-const { model, Schema } = require('mongoose');
+
+const mongoose = require('mongoose');
 
 const DOCUMENT_NAME = 'ListProduct'
 const COLLECTION_NAME = 'ListProducts'
 
-const listProductsSchema = new Schema({
+const listProductsSchema = new mongoose.Schema({
+    product_id: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         unique: true,
@@ -27,14 +31,12 @@ const listProductsSchema = new Schema({
     status: {
         type: String,
     },
-    slug: {
-        type: String,
-        required: true,
+    key_search: {
+        type: Array,
     },
 }, {
     timestamps: true,
     collection: COLLECTION_NAME
 });
 
-//Export the model
-module.exports = model(DOCUMENT_NAME, listProductsSchema);
+module.exports = mongoose.model(DOCUMENT_NAME, listProductsSchema);

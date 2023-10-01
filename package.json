@@ -18,7 +18,10 @@
     "http-errors": "^2.0.0",
     "joi": "^17.10.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.0"
+    "moment": "^2.29.4",
+    "mongoose": "^7.5.0",
+    "mongoose-auto-increment": "^5.0.1",
+    "nodemailer": "^6.9.5"
   },
   "devDependencies": {
     "crypto": "^1.0.1",

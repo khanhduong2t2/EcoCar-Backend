@@ -6,15 +6,33 @@ const DOCUMENT_NAME = 'AccountCustomer'
 const COLLECTION_NAME = 'AccountCustomers'
 
 const accCustomersSchema = new Schema({
+    email: {
+        type: String,
+        unique: true,
+        trim: true,
+    },
     username: {
         type: String,
         unique: true,
         trim: true,
     },
+    phone: {
+        type: String,
+        required: false,
+    },
+    address: {
+        type: String,
+        required: false,
+    },
     password: {
         type: String,
         required: true,
     },
+    isVerify: {
+        type: Boolean,
+        required: true,
+        default: false,
+    }
 }, {
     timestamps: true,
     collection: COLLECTION_NAME
@@ -22,6 +40,11 @@ const accCustomersSchema = new Schema({
 
 accCustomersSchema.pre('save', async function (next) {
     try {
+        // Kiểm tra password có đc thay đổi
+        if (!this.isModified('password')) {
+            return next();
+        }
+
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(this.password, salt);
         this.password = hashPassword;
