@@ -156,16 +156,13 @@ module.exports = {
 
             await AccountCustomer.updateOne(
                 { username: user },
-                { $set: { isVerify: true } },
-                (err) => {
-                    if (err) {
-                        return res.status(500).json({
-                            status: false,
-                            message: err.message
-                        })
-                    }
-                }
-            );
+                { $set: { isVerify: true } }
+            ).catch(err => {
+                return res.status(500).json({
+                    status: false,
+                    message: err.message
+                })
+            })
 
             let accCustomer = await AccountCustomer.findOne({
                 username: user
