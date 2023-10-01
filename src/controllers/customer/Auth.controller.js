@@ -116,6 +116,7 @@ module.exports = {
                 });
 
                 const verificationLink = `https://eco-car-backend.vercel.app/v1/eco/customer/verify?user=${username}`
+                // const verificationLink = `http://localhost:8000/v1/eco/customer/verify?user=${username}`
 
                 const mailOptions = {
                     from: 'khanhduong2t2@email.com',
@@ -123,7 +124,9 @@ module.exports = {
                     subject: 'Xác thực tài khoản',
                     html: `
                         <p>Xin chào, bạn đã đăng ký tài khoản thành công.</p>
-                        <p>Vui lòng <a href="${verificationLink}">nhấp vào đây</a> để xác minh tài khoản.</p>
+                        <form action=${verificationLink} method="POST">
+                        <input type="submit" value="Xác minh tài khoản" />
+                        </form>
                     `,
                 };
 
