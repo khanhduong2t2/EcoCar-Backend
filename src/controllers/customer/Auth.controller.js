@@ -132,17 +132,18 @@ module.exports = {
 
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        console.log(error);
+                        return res.status(500).json({
+                            status: false,
+                            data: error.message
+                        });
                     } else {
-                        console.log('Email contact đã được gửi: ' + info.response);
+                        return res.status(200).json({
+                            status: 'OK',
+                            data: savedUser
+                        });
                     }
                 });
             }
-
-            return res.status(200).json({
-                status: 'OK',
-                data: savedUser
-            });
         } catch (err) {
             next(err);
         };
@@ -166,6 +167,11 @@ module.exports = {
             );
 
             res.redirect('https://e-commerce-car-azure.vercel.app/')
+
+            return res.status(200).json({
+                status: true,
+                message: 'Success'
+            })
         } catch (err) {
             next(err);
         };
