@@ -150,6 +150,7 @@ module.exports = {
     },
 
     verify: async (req, res, next) => {
+        let verifySuccess = false;
         try {
             let { user } = req.query;
 
@@ -166,15 +167,30 @@ module.exports = {
                 }
             );
 
-            res.redirect('https://e-commerce-car-azure.vercel.app/')
-
-            return res.status(200).json({
-                status: true,
-                message: 'Success'
+            let accCustomer = await AccountCustomer.findOne({
+                username: user
             })
+
+            if (accCustomer && accCustomer.isVerify) {
+                verifySuccess = true;
+                return res.status(200).json({
+                    status: true,
+                    message: 'Success'
+                })
+            } else {
+                return res.status(500).json({
+                    status: false,
+                    message: 'Verify failed'
+                })
+            }
+
         } catch (err) {
             next(err);
-        };
+        } finally {
+            if (verifySuccess) {
+                res.redirect('https://e-commerce-car-azure.vercel.app/')
+            }
+        }
     },
 
     refreshToken: async (req, res, next) => {
