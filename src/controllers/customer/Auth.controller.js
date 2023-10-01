@@ -162,7 +162,7 @@ module.exports = {
                 }
             );
 
-            return res.redirect('https://e-commerce-car-azure.vercel.app/')
+            res.redirect('https://e-commerce-car-azure.vercel.app/')
         } catch (err) {
             next(err);
         };
