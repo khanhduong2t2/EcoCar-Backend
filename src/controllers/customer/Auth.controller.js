@@ -115,7 +115,7 @@ module.exports = {
                     },
                 });
 
-                const verificationLink = `http://localhost:8000/v1/eco/customer/verify?user=${username}`
+                const verificationLink = `https://eco-car-backend.vercel.app/v1/eco/customer/verify?user=${username}`
 
                 const mailOptions = {
                     from: 'khanhduong2t2@email.com',
@@ -162,7 +162,7 @@ module.exports = {
                 }
             );
 
-            return res.redirect('http://localhost:3000/')
+            return res.redirect('https://e-commerce-car-azure.vercel.app/')
         } catch (err) {
             next(err);
         };
